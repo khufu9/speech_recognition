@@ -1,9 +1,6 @@
 speech_recognition
 ==================
 
-Description
-===========
-
 Single word recognition performed using the Dynamic Time Warp technique.
 
 References
