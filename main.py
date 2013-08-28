@@ -3,6 +3,7 @@ import numpy as np
 import scipy, scipy.fftpack, scipy.cluster.vq, scipy.signal
 import matplotlib.pyplot as plt
 import math, sys, random, pickle, glob
+import subprocess
 import random
 
 DEBUG = True
@@ -377,7 +378,7 @@ class DynamicTimeWarper:
 			#print "Checking", type(obs)
 			results.append( (name, self.DTWdistance(obs_in, obs)) )
 
-		print sorted(results, key=lambda k: k[1])
+		return sorted(results, key=lambda k: k[1])
 
 
 class SoundRecon:
@@ -616,4 +617,13 @@ if __name__ == "__main__":
 	DTW = DynamicTimeWarper()
 	DTW.read_from_path("./storage")
 
-	DTW.recognize( obs )
+	# testing
+	for name,obs in DTW.observations:
+		ranking = DTW.recognize( obs )
+
+		n,w = ranking[0]
+
+		if "foo" in n:
+			subprocess.call(["mpg123","effects/button-3.mp3"])
+		print name,"==",n
+
